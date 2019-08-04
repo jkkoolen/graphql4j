@@ -25,14 +25,14 @@ public class ParserMain implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (args.length != 2) {
-            log.error("ParserMain <schemapath> <packageName>");
+        if (args.length != 3) {
+            log.error("ParserMain <schemapath> <packageName> <outputpath>");
             return;
         }
         Parser parser = new Parser();
         Document document = parser.parseDocument(new FileReader(args[0]));
         document.getDefinitions().forEach(definition -> visitor.visit(definition));
-        visitor.generate(args[1]);
+        visitor.generate(args[1], args[2]);
         System.exit(0);
     }
 }

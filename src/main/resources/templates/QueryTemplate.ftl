@@ -12,7 +12,7 @@ public class ${field.type} implements GraphQLizer {
     </#list>
 
     <#list field.methods as m>
-    public static ${field.type} ${m.name}(<#list m.arguments as a>${a.field.type} ${a.name}<#if a?is_last>)<#else>,</#if></#list> {
+    public static ${field.type} ${m.name}(<#list m.arguments as a>${a.field.type} ${a.name}<#if a?has_next>,</#if></#list>) {
         INSTANCE.methodName = "${m.name}";
         <#list m.arguments as a>
         INSTANCE.${a.name} = ${a.name};

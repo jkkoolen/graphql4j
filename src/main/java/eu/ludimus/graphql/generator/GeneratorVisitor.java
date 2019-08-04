@@ -22,7 +22,6 @@ import graphql.language.ScalarTypeDefinition;
 import graphql.language.TypeName;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -68,8 +67,6 @@ public class GeneratorVisitor extends ReflectionVisitor {
             log.error("Unable to read template files", e);
         }
     }
-
-    private final static String TMPDIR = "/Volumes/java/graphql4j/target/generated-sources"; //System.getProperty("java.io.tmpdir");
 
 
     @Override
@@ -140,12 +137,12 @@ public class GeneratorVisitor extends ReflectionVisitor {
 
     }
 
-    public void generate(String packageName) {
+    public void generate(String packageName, String outputPath) {
         { //create interface
             Map<String, Object> model = new HashMap<>();
             model.put(PACKAGE_NAME, packageName + QUERY_PACKAGE_SUFFIX);
             model.put(FIELD_KEY, fieldFactory.createInterfaceField("GraphQLizer"));
-            processForTemplate(graphQLizerTemplate, model);
+            processForTemplate(graphQLizerTemplate, model, outputPath);
         }
 
         objects.values().forEach(definition -> {
@@ -160,7 +157,7 @@ public class GeneratorVisitor extends ReflectionVisitor {
                 model.put(PACKAGE_NAME, packageName + QUERY_PACKAGE_SUFFIX);
                 model.put(FIELD_KEY, field);
                 model.put(IMPORT_KEY, "import " + packageName + ".model.*;");
-                processForTemplate(queryTemplate, model);
+                processForTemplate(queryTemplate, model, outputPath);
             } else {
                 ObjectField field = fieldFactory.createObjectField(definition.getName());
                 field.setImplement(definition.getImplements().stream().map(type -> ((TypeName) type).getName()).collect(Collectors.joining(",")));
@@ -168,10 +165,10 @@ public class GeneratorVisitor extends ReflectionVisitor {
                 Map<String, Object> model = new HashMap<>();
                 model.put(PACKAGE_NAME, packageName + MODEL_PACKAGE_SUFFIX);
                 model.put(FIELD_KEY, field);
-                processForTemplate(modelClassTemplate, model);
+                processForTemplate(modelClassTemplate, model, outputPath);
                 model.put(PACKAGE_NAME, packageName + QUERY_PACKAGE_SUFFIX);
                 model.put(IMPORT_KEY, "import " + packageName + ".model.*;");
-                processForTemplate(grapqlizerClassTemplate, model);
+                processForTemplate(grapqlizerClassTemplate, model, outputPath);
             }
         });
 
@@ -182,7 +179,7 @@ public class GeneratorVisitor extends ReflectionVisitor {
             Map<String, Object> model = new HashMap<>();
             model.put(PACKAGE_NAME, packageName + MODEL_PACKAGE_SUFFIX);
             model.put(FIELD_KEY, field);
-            processForTemplate(modelInterfaceTemplate, model);
+            processForTemplate(modelInterfaceTemplate, model, outputPath);
         });
 
         inputObjects.values().forEach(definition -> {
@@ -191,10 +188,10 @@ public class GeneratorVisitor extends ReflectionVisitor {
             Map<String, Object> model = new HashMap<>();
             model.put(PACKAGE_NAME, packageName + MODEL_PACKAGE_SUFFIX);
             model.put(FIELD_KEY, field);
-            processForTemplate(modelClassTemplate, model);
+            processForTemplate(modelClassTemplate, model, outputPath);
             model.put(PACKAGE_NAME, packageName + QUERY_PACKAGE_SUFFIX);
             model.put(IMPORT_KEY, "import " + packageName + ".model.*;");
-            processForTemplate(grapqlizerClassTemplate, model);
+            processForTemplate(grapqlizerClassTemplate, model, outputPath);
         });
 
         enums.values().forEach(definition -> {
@@ -203,14 +200,14 @@ public class GeneratorVisitor extends ReflectionVisitor {
             Map<String, Object> model = new HashMap<>();
             model.put(PACKAGE_NAME, packageName + MODEL_PACKAGE_SUFFIX);
             model.put(FIELD_KEY, field);
-            processForTemplate(enumTemplate, model);
+            processForTemplate(enumTemplate, model, outputPath);
         });
 
     }
 
-    private void processForTemplate(Template template, Map<String, Object> model) {
+    private void processForTemplate(Template template, Map<String, Object> model, String outputPath) {
         try {
-            File file = new File(TMPDIR + File.separator + "grapqlizer" + File.separator + model.get(PACKAGE_NAME).toString().replaceAll("\\.", "/") + File.separator);
+            File file = new File(outputPath + File.separator + "grapqlizer" + File.separator + model.get(PACKAGE_NAME).toString().replaceAll("\\.", "/") + File.separator);
             file.mkdirs();
             String fileName = ((Field) model.get(FIELD_KEY)).getType() + ".java";
             FileWriter out = new FileWriter(file.getAbsolutePath() + File.separator + fileName);
