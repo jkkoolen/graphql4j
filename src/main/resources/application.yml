@@ -1,0 +1,11 @@
+scalar:
+  defaults:
+    BigDecimal: java.math.BigDecimal.ONE
+    LocalDate: java.time.LocalDate.now()
+    LocalDateTime: java.time.LocalDateTime.now()
+    UUID: UUID.randomUUID()
+  imports:
+    BigDecimal: import java.math.BigDecimal;
+    LocalDate: import java.time.LocalDate;
+    LocalDateTime: import java.time.LocalDateTime;
+    UUID: import java.util.UUID;
