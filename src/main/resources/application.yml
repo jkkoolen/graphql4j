@@ -4,8 +4,11 @@ scalar:
     LocalDate: java.time.LocalDate.now()
     LocalDateTime: java.time.LocalDateTime.now()
     UUID: UUID.randomUUID()
+    Date: new Date()
   imports:
     BigDecimal: import java.math.BigDecimal;
     LocalDate: import java.time.LocalDate;
     LocalDateTime: import java.time.LocalDateTime;
     UUID: import java.util.UUID;
+    Date: import java.util.Date;
+    URL: import java.net.URL;

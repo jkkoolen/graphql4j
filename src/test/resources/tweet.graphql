@@ -19,7 +19,7 @@ type User {
     last_name: String
     full_name: String
     name: String @deprecated
-    avatar_url: Url
+    avatar_URL: URL
 }
 
 type Stat {
@@ -39,7 +39,7 @@ type Meta {
     count: Int
 }
 
-scalar Url
+scalar URL
 scalar Date
 
 type Query {

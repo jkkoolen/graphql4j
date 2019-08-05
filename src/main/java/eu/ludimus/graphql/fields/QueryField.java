@@ -1,6 +1,7 @@
 package eu.ludimus.graphql.fields;
 
 import eu.ludimus.graphql.fields.config.ScalarProperties;
+import eu.ludimus.graphql.fields.exception.FieldException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -48,13 +49,13 @@ public class QueryField extends AbstractField {
                 .map(FieldProperty::getField)
                 .filter(f -> f instanceof ScalarField)
                 .map(Field::getType)
-                .map(type -> scalarProperties.getImportForType(type))
+                .map(scalarProperties::getImportForType)
                 .distinct()
                 .collect(Collectors.joining("\n", imports, ""));
     }
 
     @Override
     public String defaultValue() {
-        return null;
+        throw new FieldException("This should never happen! Interface field cannot be instantiated.");
     }
 }
