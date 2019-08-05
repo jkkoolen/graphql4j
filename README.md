@@ -13,8 +13,15 @@ _We noticed that their where not many implementations in java which support this
 
 
 
-## Usage
+## Usage for parsing the schema
 
     usage: java eu.ludimus.graphql.generator.ParserMain <schema path> <packagename> <output path>
     
     e.g: java eu.ludimus.graphql.generator.ParseMain ${basedir}/src/test/resources/tweet.graphql eu.ludimus.tweet ${basedir}/target/generated-sources
+
+## How the result can be used
+    After running the parserMain, you end up with a <packagename>.model and a <packagename>.query package.
+    The model can be used for marshalling the result from the graphql server.
+    The query can be used to create the actual data for the post query.
+    
+    
