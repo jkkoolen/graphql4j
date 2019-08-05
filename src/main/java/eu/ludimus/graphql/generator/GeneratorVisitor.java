@@ -115,6 +115,10 @@ public class GeneratorVisitor extends ReflectionVisitor {
                 return fieldFactory.createBooleanField();
             case "Int":
                 return fieldFactory.createIntegerField();
+            case "Float":
+                return fieldFactory.createFloatField();
+            case "ID":
+                return fieldFactory.createIDField();
             default:
                 log.error(name + " unknown field!");
         }
@@ -137,7 +141,7 @@ public class GeneratorVisitor extends ReflectionVisitor {
 
     }
 
-    public void generate(String packageName, String outputPath) {
+    void generate(String packageName, String outputPath) {
         { //create interface
             Map<String, Object> model = new HashMap<>();
             model.put(PACKAGE_NAME, packageName + QUERY_PACKAGE_SUFFIX);

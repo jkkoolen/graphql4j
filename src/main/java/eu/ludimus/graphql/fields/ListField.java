@@ -16,7 +16,7 @@ public class ListField extends AbstractField {
     }
 
     @Override
-    public String defaultValue() {
-        return "java.util.Collections.emptyList()";
+    public String defaultValue(String variableName) {
+        return variableName + " = java.util.Collections.emptyList()";
     }
 }

@@ -6,7 +6,7 @@ public class BooleanField extends AbstractField {
     }
 
     @Override
-    public String defaultValue() {
-        return "Boolean.TRUE";
+    public String defaultValue(String variableName) {
+        return variableName + " = Boolean.TRUE";
     }
 }

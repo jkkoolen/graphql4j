@@ -15,22 +15,26 @@ public class AbstractObjectField extends AbstractField {
     @Setter
     private String implement = "";
 
-    public AbstractObjectField(String name, ScalarProperties scalarProperties) {
+    AbstractObjectField(String name, ScalarProperties scalarProperties) {
         setType(name);
         this.scalarProperties = scalarProperties;
     }
 
     public String imports() {
         String imports = "";
-        if(properties.stream().map(FieldProperty::getField).filter(Field::isList).findFirst().isPresent()) {
+        if(properties.stream().map(FieldProperty::getField).anyMatch(Field::isList)) {
             imports += "import java.util.List;\n";
+        }
+
+        if(properties.stream().map(FieldProperty::getField).anyMatch(field -> field instanceof IDField)) {
+            imports += "import java.util.UUID;\n";
         }
 
         return properties.stream()
                 .map(FieldProperty::getField)
                 .filter(f -> f instanceof ScalarField)
                 .map(Field::getType)
-                .map(type -> scalarProperties.getImportForType(type))
+                .map(scalarProperties::getImportForType)
                 .distinct()
                 .collect(Collectors.joining("\n", imports, ""));
 
@@ -49,7 +53,7 @@ public class AbstractObjectField extends AbstractField {
     }
 
     @Override
-    public String defaultValue() {
-        return "new " + getType() + "()";
+    public String defaultValue(String variableName) {
+        return variableName + " = new " + getType() + "()";
     }
 }

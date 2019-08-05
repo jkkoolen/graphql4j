@@ -14,7 +14,7 @@ public class InterfaceField extends AbstractObjectField {
     }
 
     @Override
-    public String defaultValue() {
+    public String defaultValue(String variableName) {
         throw new FieldException("This should never happen! Interface field cannot be instantiated.");
     }
 }

@@ -1,7 +1,5 @@
-scalar UUID
-
 type Tweet {
-    UUID: UUID!
+    ID: ID!
     # The tweet text. No more than 140 characters!
     body: String
     # When the tweet was published
@@ -13,7 +11,7 @@ type Tweet {
 }
 
 type User {
-    UUID: UUID!
+    ID: ID!
     username: String
     first_name: String
     last_name: String
@@ -30,7 +28,7 @@ type Stat {
 }
 
 type Notification {
-    UUID: UUID
+    ID: ID
     date: Date
     type: String
 }
@@ -43,10 +41,10 @@ scalar URL
 scalar Date
 
 type Query {
-    Tweet(UUID: UUID!): Tweet
+    Tweet(ID: ID!): Tweet
     Tweets(limit: Int, skip: Int, sort_field: String, sort_order: String): [Tweet]
     TweetsMeta: Meta
-    User(UUID: UUID!): User
+    User(ID: ID!): User
     Notifications(limit: Int): [Notification]
     NotificationsMeta: Meta
 }
@@ -55,6 +53,6 @@ type Mutation {
     createTweet (
         body: String
     ): Tweet
-    deleteTweet(UUID: UUID!): Tweet
-    markTweetRead(UUID: UUID!): Boolean
+    deleteTweet(ID: ID!): Tweet
+    markTweetRead(ID: ID!): Boolean
 }

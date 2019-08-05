@@ -6,7 +6,7 @@ public class StringField extends AbstractField {
     }
 
     @Override
-    public String defaultValue() {
-        return "\"\"";
+    public String defaultValue(String variableName) {
+        return variableName + " = \"\"";
     }
 }

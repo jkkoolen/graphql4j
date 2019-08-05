@@ -41,9 +41,14 @@ public class QueryField extends AbstractField {
 
     public String imports() {
         String imports = "";
-        if (methods.stream().map(Method::getArguments).flatMap(Collection::stream).distinct().map(FieldProperty::getField).filter(Field::isList).findFirst().isPresent()) {
+        if (methods.stream().map(Method::getArguments).flatMap(Collection::stream).distinct().map(FieldProperty::getField).anyMatch(Field::isList)) {
             imports += "import java.util.List;\n";
         }
+
+        if(methods.stream().map(Method::getArguments).flatMap(Collection::stream).distinct().map(FieldProperty::getField).anyMatch(field -> field instanceof IDField)) {
+            imports += "import java.util.UUID;\n";
+        }
+
 
         return methods.stream().map(Method::getArguments).flatMap(Collection::stream)
                 .map(FieldProperty::getField)
@@ -55,7 +60,7 @@ public class QueryField extends AbstractField {
     }
 
     @Override
-    public String defaultValue() {
+    public String defaultValue(String variableName) {
         throw new FieldException("This should never happen! Interface field cannot be instantiated.");
     }
 }

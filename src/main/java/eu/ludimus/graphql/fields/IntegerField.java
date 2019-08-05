@@ -7,7 +7,7 @@ public class IntegerField extends AbstractField {
     }
 
     @Override
-    public String defaultValue() {
-        return "Integer.valueOf(1)";
+    public String defaultValue(String variableName) {
+        return variableName + " = Integer.valueOf(1)";
     }
 }

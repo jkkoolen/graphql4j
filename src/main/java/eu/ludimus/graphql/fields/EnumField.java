@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 public class EnumField extends AbstractField {
-    private List<String> values = new ArrayList();
+    private List<String> values = new ArrayList<>();
 
     EnumField(String type) {
         setType(type);
@@ -24,7 +24,7 @@ public class EnumField extends AbstractField {
     }
 
     @Override
-    public String defaultValue() {
-        return getType() + ".values()[0]";
+    public String defaultValue(String variableName) {
+        return variableName + " = " + getType() + ".values()[0]";
     }
 }

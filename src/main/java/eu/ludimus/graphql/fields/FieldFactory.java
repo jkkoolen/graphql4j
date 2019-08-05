@@ -19,6 +19,14 @@ public class FieldFactory {
         return new IntegerField();
     }
 
+    public FloatField createFloatField() {
+        return new FloatField();
+    }
+
+    public IDField createIDField() {
+        return new IDField();
+    }
+
     public StringField createStringField() {
         return new StringField();
     }

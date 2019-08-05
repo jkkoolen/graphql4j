@@ -1,10 +1,14 @@
 scalar:
   defaults:
-    BigDecimal: java.math.BigDecimal.ONE
-    LocalDate: java.time.LocalDate.now()
-    LocalDateTime: java.time.LocalDateTime.now()
-    UUID: UUID.randomUUID()
-    Date: new Date()
+    BigDecimal: ${VARIABLE} = java.math.BigDecimal.ONE
+    LocalDate: ${VARIABLE} = java.time.LocalDate.now()
+    LocalDateTime: ${VARIABLE} = java.time.LocalDateTime.now()
+    UUID: ${VARIABLE} = UUID.randomUUID()
+    Date: ${VARIABLE} = new Date()
+    URL: try {
+          ${VARIABLE} = new URL("http://foo.graphql");
+        } catch (java.net.MalformedURLException e)
+        {}
   imports:
     BigDecimal: import java.math.BigDecimal;
     LocalDate: import java.time.LocalDate;

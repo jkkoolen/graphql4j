@@ -25,7 +25,7 @@ public class ${field.type} implements GraphQLizer {
     }
     <#else>
     public ${field.type} include${p.name[0]?upper_case}${p.name?substring(1)}() {
-        this.${p.name} = ${p.field.defaultValue()};
+        ${p.field.defaultValue("this.${p.name}")};
         return this;
     }
     </#if>

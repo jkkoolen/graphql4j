@@ -7,5 +7,5 @@ public interface Field {
     boolean isInterface();
     boolean isEnum();
     boolean isList();
-    String defaultValue();
+    String defaultValue(String variableName);
 }
