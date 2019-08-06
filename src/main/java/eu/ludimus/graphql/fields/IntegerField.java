@@ -1,6 +1,6 @@
 package eu.ludimus.graphql.fields;
 
-public class IntegerField extends AbstractField {
+public class IntegerField extends AbstractPrimitiveField {
     IntegerField() {
         setType("Integer");
 

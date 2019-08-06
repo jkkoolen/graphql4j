@@ -1,6 +1,6 @@
 package eu.ludimus.graphql.fields;
 
-public class BooleanField extends AbstractField {
+public class BooleanField extends AbstractPrimitiveField {
     BooleanField() {
         setType("Boolean");
     }

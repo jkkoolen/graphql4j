@@ -35,7 +35,7 @@ public class ${field.type} implements GraphQLizer {
                 <#if p.field.isList()>
                     (${p.name} == null ? "[]" : ${p.name}.stream().map(field -> <#if p.field.listField.isObject()>field.toQuery()<#elseif p.field.listField.isEnum()>field.name()<#else>field.toString()</#if>).collect(java.util.stream.Collectors.joining(",", "[", "]"))) + "," +
                 <#else>
-                    (${p.name} != null ? "${p.name}: \"" + ${p.name}<#if p.field.isObject()>.toQuery()</#if> + "\"" : "") + "," +
+                    (${p.name} != null ? "${p.name}: <#if !p.field.isPrimitive()>\"</#if>" + ${p.name}<#if p.field.isObject()>.toQuery()</#if> + "<#if !p.field.isPrimitive()>\"</#if>" : "") + "," +
                 </#if>
             </#list>
                ")").replace(",)" , ")") + response.toQuery();

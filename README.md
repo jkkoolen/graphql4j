@@ -98,4 +98,4 @@ it generates a Query class in the query package which can be used like:
                 
 which gives the following query:                
 
-    Tweets(limit: "3",skip: "2",sort_field: "methodName",sort_order: "asc"){ID body date Author {first_name full_name avatar_URL }Stats {views likes retweets responses }}
+    Tweets(limit: 3,skip: 2,sort_field: "methodName",sort_order: "asc"){ID body date Author {first_name full_name avatar_URL }Stats {views likes retweets responses }}

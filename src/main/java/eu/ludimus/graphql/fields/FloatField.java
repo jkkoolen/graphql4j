@@ -1,6 +1,6 @@
 package eu.ludimus.graphql.fields;
 
-public class FloatField extends AbstractField {
+public class FloatField extends AbstractPrimitiveField {
     FloatField() {
         setType("Float");
 

@@ -32,4 +32,9 @@ abstract class AbstractField implements Field {
     public boolean isList() {
         return false;
     }
+
+    @Override
+    public boolean isPrimitive() {
+        return false;
+    }
 }
