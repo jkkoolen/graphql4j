@@ -10,7 +10,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <groupId>eu.ludimus.graphql</groupId>
     <artifactId>graphql4j</artifactId>
+    <version>1.0.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
