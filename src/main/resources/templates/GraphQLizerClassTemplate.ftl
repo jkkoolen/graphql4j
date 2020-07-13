@@ -4,30 +4,26 @@ ${field.imports()}
 ${import}
 
 public class ${field.type} implements GraphQLizer {
-<#list field.properties as p>
-    <#if p.field.isList()>
-    private ${p.field.listField.type} ${p.name};
-    <#else>
-    private ${p.field.type} ${p.name};
-    </#if>
-</#list>
 
 <#list field.properties as p>
     <#if p.field.isObject() || field.isInputObject()>
-    public ${field.type} include${p.name[0]?upper_case}${p.name?substring(1)}(${p.field.type} ${p.name}) {
+        private ${p.field.type} ${p.name};
+        public ${field.type} include${p.name[0]?upper_case}${p.name?substring(1)}(${p.field.type} ${p.name}) {
         this.${p.name} = ${p.name};
         return this;
-    }
+        }
     <#elseif p.field.isList()>
-    public ${field.type} include${p.name[0]?upper_case}${p.name?substring(1)}(${p.field.listField.type} ${p.name}) {
+        private ${p.field.listField.type} ${p.name};
+        public ${field.type} include${p.name[0]?upper_case}${p.name?substring(1)}(${p.field.listField.type} ${p.name}) {
         this.${p.name} = ${p.name};
         return this;
-    }
+        }
     <#else>
-    public ${field.type} include${p.name[0]?upper_case}${p.name?substring(1)}() {
+        private ${p.field.type} ${p.name};
+        public ${field.type} include${p.name[0]?upper_case}${p.name?substring(1)}() {
         ${p.field.defaultValue("this.${p.name}")};
         return this;
-    }
+        }
     </#if>
 </#list>
     private ${field.type}() {
