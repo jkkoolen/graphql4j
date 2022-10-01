@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: graphql4j
+  annotations:
+    github.com/project-slug: jkkoolen/graphql4j
+spec:
+  type: other
+  lifecycle: unknown
+  owner: guests
